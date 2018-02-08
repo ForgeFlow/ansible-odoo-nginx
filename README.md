@@ -8,7 +8,7 @@ This role takes care of:
 - Installing [NGINX][9] using the [NGINX Ansible Role][6]
 - Creating a [Odoo][2] specific configuration
 
-Original code from ridingbytes_nginx by [Ridingbytes_nginx][1]
+
 
 ## Dependencies
 
@@ -25,7 +25,7 @@ Available variables are listed below, along with default values (see
 `defaults/main.yml`):
 
 
-
+Original code from ridingbytes_nginx by [Ridingbytes_nginx][1]
 
 
 [1]:  http://ridingbytes.com "RIDING BYTES"
