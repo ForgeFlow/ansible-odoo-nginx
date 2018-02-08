@@ -1,0 +1,53 @@
+# HTTP VHOST: {{ item.server_name }}
+server {
+    listen 80;
+    server_name {{ item.server_name }} {% for alias in item.server_aliases %} {{ alias }} {% if item.generate_www_aliases  %} www.{{ alias }} {% endif %}{% endfor %};
+    return 301 https://$server_name$request_uri;
+}
+
+# HTTPS VHOST: {{ item.server_name }}
+server {
+    listen 443 ssl;
+    server_name {{ item.server_name }} {% for item in item.server_aliases %} {{ item }} {% endfor %};
+
+    {% if item.redirect | default(False) %}
+      # redirect to {{ item.server_name }}
+      if ($host != '{{ item.server_name }}') {
+        return 301 $scheme://{{ item.server_name }}$request_uri;
+      }
+    {% endif %}
+
+    ssl_certificate {{ ssl_certificate }};
+    ssl_certificate_key {{ ssl_certificate_key }};
+
+    ssl_session_timeout 10m;
+    ssl_protocols SSLv3 TLSv1;
+    ssl_ciphers ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv3:+EXP;
+    ssl_prefer_server_ciphers on;
+
+    # log files
+    access_log  /var/log/nginx/{{ item.file_name }}.access.log;
+    error_log   /var/log/nginx/{{ item.file_name }}.error.log;
+
+    location / {
+        # force timeouts if the backend dies
+        proxy_next_upstream error timeout invalid_header http_500 http_502 http_503 http_504;
+        proxy_redirect off;
+
+        # set headers
+        proxy_set_header    Host            $host;
+        proxy_set_header    X-Real-IP       $remote_addr;
+        proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header    X-Forwarded-Proto http;
+
+        proxy_pass          {{ item.backend }};
+    }
+
+    # cache some static data in memory for 60mins
+    location ~* /web/static/ {
+        proxy_cache_valid 200 60m;
+        proxy_buffering on;
+        expires 864000;
+        proxy_pass {{ item.backend }};
+    }
+}

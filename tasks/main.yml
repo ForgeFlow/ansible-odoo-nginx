@@ -1,0 +1,32 @@
+---
+
+- name: Remove `default` VHOST config
+  file:
+    path: "{{ nginx_default_vhost_path }}"
+    state: absent
+  when: nginx_remove_default_vhost
+  notify:
+    - reload nginx
+  tags:
+    - nginx
+
+- name: Copy VHOST Config
+  template:
+    src: odoo_vhost.conf.j2
+    dest: "{{ nginx_sites_available }}/{{ item.file_name }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items: "{{ odoo_vhosts }}"
+  notify:
+    - reload nginx
+  tags:
+    - nginx
+
+- name: Enable VHOST Configs
+  shell: cd {{ nginx_sites_enabled }} && ln -sf {{ nginx_sites_available }}/{{ item.file_name }} .
+  with_items: "{{ odoo_vhosts }}"
+  notify:
+    - reload nginx
+  tags:
+    - nginx

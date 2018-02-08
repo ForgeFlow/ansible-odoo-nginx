@@ -1,0 +1,5 @@
+---
+
+dependencies:
+  - role: geerlingguy.nginx
+    tags: nginx

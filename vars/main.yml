@@ -1,0 +1,21 @@
+---
+
+# RIDING BYTES specific NGINX configuration
+nginx_path: "/etc/nginx"
+nginx_conf: "{{ nginx_path }}/nginx.conf"
+nginx_sites_available: "{{ nginx_path }}/sites-available"
+nginx_sites_enabled: "{{ nginx_path }}/sites-enabled"
+nginx_extra_http_options: |
+  proxy_read_timeout 600s;
+
+nginx_upstreams:
+  - name: odoo
+    strategy: "ip_hash" # "least_conn", etc.
+    servers: {
+      "127.0.0.1:8069"
+    }
+
+# https://github.com/geerlingguy/ansible-role-nginx
+nginx_remove_default_vhost: true
+nginx_server_names_hash_bucket_size: "256"
+nginx_client_max_body_size: "1024m"

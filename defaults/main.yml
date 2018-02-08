@@ -1,0 +1,12 @@
+
+# Odoo VHOSTS
+odoo_vhosts:
+  - server_name: "_"
+    server_aliases: []
+    database: "productive"
+    file_name: "default"
+    backend: "http://odoo"
+
+# SSL
+ssl_certificate: /etc/ssl/certs/ssl-cert-snakeoil.pem
+ssl_certificate_key: /etc/ssl/private/ssl-cert-snakeoil.key
