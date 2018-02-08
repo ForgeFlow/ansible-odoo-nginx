@@ -24,7 +24,7 @@ Note: This role uses the [NGINX Ansible Role][6] to ensure the installation
 Available variables are listed below, along with default values (see
 `defaults/main.yml`):
 
-
+## Thanks to
 Original code from ridingbytes_nginx by [Ridingbytes_nginx][1]
 
 
