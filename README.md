@@ -25,7 +25,7 @@ Available variables are listed below, along with default values (see
 `defaults/main.yml`):
 
 ## Thanks to
-Original code from ridingbytes_nginx by [Ridingbytes_nginx][1]
+Original code from [ridingbytes.ansible-odoo-playbook][11] by [Ridingbytes][1]
 
 
 [1]:  http://ridingbytes.com "RIDING BYTES"
@@ -38,3 +38,4 @@ Original code from ridingbytes_nginx by [Ridingbytes_nginx][1]
 [8]:  https://docs.ansible.com/ansible/intro_inventory.html "Ansible Inventory"
 [9]:  http://www.nginx.org "NGINX"
 [10]: https://galaxy.ansible.com/geerlingguy/nginx "NGINX Ansible Role"
+[11]: https://github.com/ridingbytes/ridingbytes.ansible-odoo-playbook "ridingbytes.ansible-odoo-playbook"
