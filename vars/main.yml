@@ -14,6 +14,11 @@ nginx_upstreams:
     servers: {
       "127.0.0.1:8069"
     }
+  - name: longpolling
+    strategy: "ip_hash"
+    servers: {
+      "127.0.0.1:8072"
+    }
 
 # https://github.com/geerlingguy/ansible-role-nginx
 nginx_remove_default_vhost: true
