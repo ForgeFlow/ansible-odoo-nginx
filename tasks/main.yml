@@ -23,7 +23,7 @@
     - nginx
 
 - name: Enable VHOST Configs
-  shell: cd {{ nginx_sites_enabled }} && ln -sf {{ nginx_sites_available }}/{{ nginx_odoo_server }} .
+  shell: cd {{ nginx_sites_enabled }} && ln -sf {{ nginx_sites_available }}/odoo .
   notify:
     - reload nginx
   tags:
