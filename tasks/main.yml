@@ -13,7 +13,7 @@
 - name: Copy VHOST Config
   template:
     src: odoo_vhost.conf.j2
-    dest: "{{ nginx_sites_available }}/{{ nginx_odoo_server }}"
+    dest: "{{ nginx_sites_available }}/odoo"
     owner: root
     group: root
     mode: 0644
